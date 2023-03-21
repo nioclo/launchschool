@@ -1,4 +1,10 @@
-VALID_CHOICES = ["rock", "paper", "scissors"]
+CHOICES_VECTOR = {
+  "rock" => ["scissors", "lizard"], 
+  "paper" => ["rock", "spock"],
+  "scissors" => ["paper", "lizard"],
+  "spock" => ["scissors", "rock"],
+  "lizard" => ["paper", "spock"]
+}
 
 def display_result(my_choice, computer_choice)
   if win?(my_choice, computer_choice)
@@ -15,21 +21,20 @@ def prompt(message)
 end
 
 def win?(first, second)
-  (first == 'rock' && second == 'scissors') ||
-    (first == 'paper' && second == 'rock') ||
-    (first == 'scissors' && second == 'paper')
+  # check if the second is a value in the list associated with the first
+  CHOICES_VECTOR[first].include?(second)
 end
 
 loop do
   choice = ''
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
+    prompt("Choose one: #{CHOICES_VECTOR.keys.join(', ')}")
     choice = Kernel.gets().chomp()
-    break if VALID_CHOICES.include?(choice)
+    break if CHOICES_VECTOR.keys.include?(choice)
     prompt("Invalid choice, please retry")
   end
 
-  computer_choice = VALID_CHOICES.sample
+  computer_choice = CHOICES_VECTOR.keys.sample
   display_result(choice, computer_choice)
 
   prompt("You chose #{choice} and the computer chose #{computer_choice}")
