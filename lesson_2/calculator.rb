@@ -8,7 +8,11 @@ def prompt(message)
 end
 
 def valid_number?(number)
-  number.to_i != 0
+  /^-?\d+$/ =~ number
+end
+
+def valid_scientific_number?(number)
+  /^-?\d*\.?\d*$/ =~ number
 end
 
 prompt("Welcome to Calculator! Enter your name:")
@@ -27,7 +31,7 @@ loop do
   loop do
     prompt("What's the first number?")
     n1 = Kernel.gets().chomp()
-    if valid_number?(n1)
+    if valid_scientific_number?(n1)
       break
     else
       prompt("That's not a valid input")
@@ -38,7 +42,7 @@ loop do
   loop do
     prompt("What's the second number?")
     n2 = Kernel.gets().chomp()
-    if valid_number?(n2)
+    if valid_scientific_number?(n2)
       break
     else
       prompt("That's not a valid input")
