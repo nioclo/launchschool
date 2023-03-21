@@ -1,13 +1,9 @@
 VALID_CHOICES = ["rock", "paper", "scissors"]
 
 def display_result(my_choice, computer_choice)
-  if (my_choice == 'rock' && computer_choice == 'scissors') ||
-  (my_choice == 'paper' && computer_choice == 'rock') ||
-  (my_choice == 'scissors' && computer_choice == 'paper')
-    prompt("You won!")
-  elsif (my_choice == 'scissors' && computer_choice == 'paper') ||
-  (my_choice == 'rock' && computer_choice == 'paper') ||
-  (my_choice == 'paper' && computer_choice == 'scissors')
+  if win?(my_choice, computer_choice)
+    prompt("You win!")
+  elsif win?(computer_choice, my_choice)
     prompt("Computer won!")
   else
     prompt("It's a tie!")
@@ -16,6 +12,12 @@ end
 
 def prompt(message)
   Kernel.puts("=> #{message}")
+end
+
+def win?(first, second)
+  (first == 'rock' && second == 'scissors') ||
+    (first == 'paper' && second == 'rock') ||
+    (first == 'scissors' && second == 'paper')
 end
 
 loop do
