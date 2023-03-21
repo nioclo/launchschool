@@ -3,6 +3,9 @@
 # perform the operation on the two numbers
 # output the result
 
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
@@ -15,12 +18,12 @@ def valid_scientific_number?(number)
   /^-?\d*\.?\d*$/ =~ number
 end
 
-prompt("Welcome to Calculator! Enter your name:")
+prompt(MESSAGES['welcome'])
 name = ''
 loop do
   name = Kernel.gets().chomp()
   if name.empty?()
-    prompt("Please enter a valid name")
+    prompt(MESSAGES['valid_name'])
   else
     break
   end
@@ -29,36 +32,32 @@ end
 loop do
   n1 = ''
   loop do
-    prompt("What's the first number?")
+    prompt(MESSAGES['first_number'])
     n1 = Kernel.gets().chomp()
     if valid_scientific_number?(n1)
       break
     else
-      prompt("That's not a valid input")
+      prompt(MESSAGES['invalid_input'])
     end
   end
 
   n2 = ''
   loop do
-    prompt("What's the second number?")
+    prompt(MESSAGES['second_number'])
     n2 = Kernel.gets().chomp()
     if valid_scientific_number?(n2)
       break
     else
-      prompt("That's not a valid input")
+      prompt(MESSAGES['invalid_input'])
     end
   end
 
-  prompt("Which operation would you like to perform?")
-  prompt("1) add")
-  prompt("2) subtract")
-  prompt("3) multiply")
-  prompt("4) divide")
+  prompt(MESSAGES['select_operation'])
   operator = ''
   loop do
     operator = Kernel.gets().chomp()
     break if %w(1 2 3 4).include?(operator)
-    prompt("Must choose 1, 2, 3, or 4")
+    prompt(MESSAGES['invalid_operation'])
   end
 
   result = case operator
@@ -73,7 +72,7 @@ loop do
   end
 
   prompt("The result is #{result}")
-  prompt("Do you want to perform another calculation?")
+  prompt(MESSAGES['query_again'])
   prompt("Y or N")
   answer = Kernel.gets().chomp()
   break unless answer.downcase() == 'y'
