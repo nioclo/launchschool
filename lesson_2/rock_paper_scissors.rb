@@ -1,5 +1,5 @@
 CHOICES_VECTOR = {
-  "rock" => ["scissors", "lizard"], 
+  "rock" => ["scissors", "lizard"],
   "paper" => ["rock", "spock"],
   "scissors" => ["paper", "lizard"],
   "spock" => ["scissors", "rock"],
