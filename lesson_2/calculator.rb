@@ -3,28 +3,74 @@
 # perform the operation on the two numbers
 # output the result
 
-Kernel.puts("Welcome to Calculator!")
-Kernel.puts("What's the first number?")
-n1 = Kernel.gets().chomp()
-Kernel.puts("What's the second number?")
-n2 = Kernel.gets().chomp()
-
-Kernel.puts("Which operation would you like to perform?")
-Kernel.puts("1) add")
-Kernel.puts("2) subtract")
-Kernel.puts("3) multiply")
-Kernel.puts("4) divide")
-operator = Kernel.gets().chomp()
-
-case operator
-when '1'
-  result = n1.to_i + n2.to_i
-when '2'
-  result = n1.to_i - n2.to_i
-when '3'
-  result = n1.to_i * n2.to_i
-when '4'
-  result = n1.to_f / n2.to_f
+def prompt(message)
+  Kernel.puts("=> #{message}")
 end
 
-Kernel.puts("The result is #{result}")
+def valid_number?(number)
+  number.to_i != 0
+end
+
+prompt("Welcome to Calculator! Enter your name:")
+name = ''
+loop do
+  name = Kernel.gets().chomp()
+  if name.empty?()
+    prompt("Please enter a valid name")
+  else
+    break
+  end
+end
+
+loop do
+  n1 = ''
+  loop do
+    prompt("What's the first number?")
+    n1 = Kernel.gets().chomp()
+    if valid_number?(n1)
+      break
+    else
+      prompt("That's not a valid input")
+    end
+  end
+
+  n2 = ''
+  loop do
+    prompt("What's the second number?")
+    n2 = Kernel.gets().chomp()
+    if valid_number?(n2)
+      break
+    else
+      prompt("That's not a valid input")
+    end
+  end
+
+  prompt("Which operation would you like to perform?")
+  prompt("1) add")
+  prompt("2) subtract")
+  prompt("3) multiply")
+  prompt("4) divide")
+  operator = ''
+  loop do
+    operator = Kernel.gets().chomp()
+    break if %w(1 2 3 4).include?(operator)
+    prompt("Must choose 1, 2, 3, or 4")
+  end
+
+  result = case operator
+    when '1'
+      n1.to_i + n2.to_i
+    when '2'
+      n1.to_i - n2.to_i
+    when '3'
+      n1.to_i * n2.to_i
+    when '4'
+      n1.to_f / n2.to_f
+  end
+
+  prompt("The result is #{result}")
+  prompt("Do you want to perform another calculation?")
+  prompt("Y or N")
+  answer = Kernel.gets().chomp()
+  break unless answer.downcase() == 'y'
+end
