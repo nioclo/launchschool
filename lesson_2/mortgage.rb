@@ -1,5 +1,8 @@
 def calculate_mortgage(loan_amount, monthly_interest_rate, loan_duration)
-  (loan_amount * (monthly_interest_rate / (1 - ( 1 + monthly_interest_rate)**(-loan_duration)))).round(2)
+  (loan_amount *
+    (monthly_interest_rate /
+    (1 - (1 + monthly_interest_rate)**(-loan_duration))))
+    .round(2)
 end
 
 def prompt(message)
@@ -23,7 +26,8 @@ loop do
   apr = ''
   loop do
     prompt("Input your APR as an integer: ")
-    prompt("(Example: enter 5 if your interest is 5%, enter 2.5 if your interest is 2.5%)")
+    prompt("(Example: enter 5 if your interest is 5%,
+    enter 2.5 if your interest is 2.5%)")
     apr = Kernel.gets().chomp()
     break if valid_number?(apr)
     prompt("Invalid input")
@@ -35,7 +39,11 @@ loop do
     break if valid_number?(months)
     prompt("Invalid input")
   end
-  monthly_payment = calculate_mortgage(loan_amount.to_f, (apr.to_f * 0.01) / 12, months.to_f)
+  monthly_payment = calculate_mortgage(
+    loan_amount.to_f,
+    (apr.to_f * 0.01) / 12,
+    months.to_f
+  )
   prompt("Your monthly payment is #{monthly_payment}")
   prompt("Would you like to perform another mortgage calculation?")
   prompt("Y or N")
